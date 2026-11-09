@@ -11,6 +11,7 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { useSession } from "@/providers/session-provider"
 import { useState } from "react"
+import { Loader2Icon } from "lucide-react"
 
 function LoginView() {
   const [email, setEmail] = useState("")
@@ -76,7 +77,7 @@ function LoginView() {
             onClick={handleLogin}
             disabled={isLoading}
           >
-            Login
+            {isLoading ? <Loader2Icon className="animate-spin" /> : "Login"}
           </Button>
         </CardFooter>
       </Card>
