@@ -5,13 +5,16 @@ import "./index.css"
 import App from "./App.tsx"
 import { ThemeProvider } from "@/providers/theme-provider.tsx"
 import { SessionProvider } from "./providers/session-provider.tsx"
+import { BrowserRouter } from "react-router"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider>
-      <SessionProvider>
-        <App />
-      </SessionProvider>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider>
+        <SessionProvider>
+          <App />
+        </SessionProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   </StrictMode>
 )

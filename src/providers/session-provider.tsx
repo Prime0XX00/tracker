@@ -1,8 +1,10 @@
+import { LANDING_URL, LOGIN_URL } from "@/magic/urls"
 import { loginService } from "@/services/auth/loginService"
 import { logoutService } from "@/services/auth/logoutService"
 import { getSessionService } from "@/services/auth/sessionService"
 import type { Session } from "@supabase/supabase-js"
 import { createContext, useContext, useEffect, useState } from "react"
+import { useNavigate } from "react-router"
 
 type SessionProviderState = {
   session: Session | undefined
@@ -22,6 +24,8 @@ type SessionProviderProps = {
 export function SessionProvider({ ...props }: SessionProviderProps) {
   const [session, setSession] = useState<Session>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const navigate = useNavigate()
 
   async function applySession() {
     const newSession = await getSessionService()
@@ -63,6 +67,14 @@ export function SessionProvider({ ...props }: SessionProviderProps) {
   useEffect(() => {
     applySession()
   }, [])
+
+  useEffect(() => {
+    if (session) {
+      navigate(LANDING_URL)
+    } else {
+      navigate(LOGIN_URL)
+    }
+  }, [session])
 
   return (
     <SessionProviderContext value={{ session, isLoading, logIn, logOut }}>
