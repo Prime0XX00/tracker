@@ -7,12 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field"
+import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { useSession } from "@/providers/session-provider"
 import { useState } from "react"
@@ -21,7 +16,7 @@ function LoginView() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const { login } = useSession()
+  const { logIn, isLoading } = useSession()
 
   function handleEmailChange(
     e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>
@@ -36,7 +31,7 @@ function LoginView() {
   }
 
   async function handleLogin() {
-    login(email, password)
+    logIn(email, password)
   }
 
   return (
@@ -60,15 +55,9 @@ function LoginView() {
                   onChange={handleEmailChange}
                   value={email}
                 />
-                <FieldDescription>
-                  Choose a unique username for your account.
-                </FieldDescription>
               </Field>
               <Field>
                 <FieldLabel htmlFor="password">Password</FieldLabel>
-                <FieldDescription>
-                  Must be at least 8 characters long.
-                </FieldDescription>
                 <Input
                   id="password"
                   type="password"
@@ -81,7 +70,12 @@ function LoginView() {
           </form>
         </CardContent>
         <CardFooter>
-          <Button type="submit" className="w-full" onClick={handleLogin}>
+          <Button
+            type="submit"
+            className="w-full"
+            onClick={handleLogin}
+            disabled={isLoading}
+          >
             Login
           </Button>
         </CardFooter>
