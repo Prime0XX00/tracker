@@ -1,5 +1,11 @@
+import LoginView from "./views/login-view"
+
 export function App() {
-  return <></>
+  return (
+    <>
+      <LoginView></LoginView>
+    </>
+  )
 }
 
 export default App
