@@ -1,9 +1,12 @@
-import LoginView from "./views/login-view"
+import { SessionProvider } from "@/providers/session-provider"
+import LoginView from "@/views/login-view"
 
 export function App() {
   return (
     <>
-      <LoginView></LoginView>
+      <SessionProvider>
+        <LoginView />
+      </SessionProvider>
     </>
   )
 }
