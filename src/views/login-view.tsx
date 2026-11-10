@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card"
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { useSession } from "@/providers/session-provider"
+import { useSession } from "@/hooks/useSession"
 import { useState } from "react"
 import { Loader2Icon } from "lucide-react"
 

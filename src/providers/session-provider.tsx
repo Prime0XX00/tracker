@@ -3,26 +3,26 @@ import { loginService } from "@/services/auth/loginService"
 import { logoutService } from "@/services/auth/logoutService"
 import { getSessionService } from "@/services/auth/sessionService"
 import type { Session } from "@supabase/supabase-js"
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 
 type SessionProviderState = {
-  session: Session | undefined
+  session: Session | null
   isLoading: boolean
   logIn(email: string, password: string): Promise<void>
   logOut(): Promise<void>
 }
 
-const SessionProviderContext = createContext<SessionProviderState | undefined>(
-  undefined
-)
+export const SessionProviderContext = createContext<
+  SessionProviderState | undefined
+>(undefined)
 
 type SessionProviderProps = {
   children?: React.ReactNode
 }
 
 export function SessionProvider({ ...props }: SessionProviderProps) {
-  const [session, setSession] = useState<Session>()
+  const [session, setSession] = useState<Session | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const navigate = useNavigate()
@@ -61,7 +61,7 @@ export function SessionProvider({ ...props }: SessionProviderProps) {
       throw new Error("Error while loggin out: " + res.error.message)
     }
 
-    setSession(undefined)
+    setSession(null)
   }
 
   useEffect(() => {
@@ -81,14 +81,4 @@ export function SessionProvider({ ...props }: SessionProviderProps) {
       {props.children}
     </SessionProviderContext>
   )
-}
-
-export function useSession() {
-  const context = useContext(SessionProviderContext)
-
-  if (context === undefined) {
-    throw new Error("useSession must be used within a SessionProvider")
-  }
-
-  return context
 }
