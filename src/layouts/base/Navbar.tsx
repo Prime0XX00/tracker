@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { useSession } from "@/providers/session-provider"
+import { useSession } from "@/hooks/useSession"
 import { Loader2Icon } from "lucide-react"
 
 function Navbar() {
